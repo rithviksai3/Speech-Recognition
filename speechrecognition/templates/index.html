@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>SpeechRecognition</title>
+        <meta charset="utf-8">
+        {%load static%}
+        <meta name="viewport" content="width=device-width,intial-scale=1">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body{
+                background-image: url("{%static 'img/mainback.jpg'%}");
+            }
+            .con1{
+                background-image: url("{% static 'img/speech.jpg'%}");
+                background-repeat: no-repeat;
+                background-size:cover;
+                border: 2px solid black;
+                border-radius: 20px;
+                height:400px;
+                width:40vw;
+                position: absolute;
+                left:10vw;
+                top:150px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            button{
+                background-color: red;
+                color: aliceblue;
+                font-size: 30px;
+                height:70px;
+                width:70px;
+                border-radius: 40px; 
+            }
+            @keyframes wave{
+                0%{
+                    transform: translateY(-10px);
+                }
+                100%{
+                    transform: translateY(10px);
+                }
+            }
+            #listen{
+                position: absolute;
+                animation-name: wave;
+                animation-iteration-count: infinite;
+                animation-duration:2s;
+            }
+            .Messages h3{
+                color:black;
+                position: relative;
+                padding: 0;
+                margin: 0;
+            }
+            .text{
+                border:2px solid black;
+                background-image: url("{%static 'img/text.png'%}");
+                background-repeat: no-repeat;
+                background-size: cover;
+                width:40vw;
+                height:500px;
+                position: absolute;
+                top:150px;
+                left: 51vw;
+                overflow: scroll;
+                scrollbar-width: thin;
+            }
+            span{
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <center><h1 style="color: aliceblue;">SPEECH RECOGNITION</h1></center>
+        <div class="container">
+            <p style="color: aliceblue;">This is a speech recognizer it recognizes and writes below in the text area and also if you want to open any sites or apps like google,youtube,camera etc you can speak "open {site name}".</p>
+            <span>
+            <div class="con1">
+                <div class="con2">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    <button type="submit" id="button">🎙</button>
+                    </form>
+                    <h2>Click to start</h2>
+                    <h3 id="listen">Listening...</h3>
+                </div>
+            </div>
+            </span>
+            <span>
+            <div class="text">
+                <div class="Messages">
+                    <center><h2>------YOUR TEXT GOES HERE------</h2></center>
+                    {% for message in messages %}
+                    <h3>{{message}}</h3>
+                    {% endfor %}
+                </div>
+            </div>
+            </span>
+        </div>
+        
+    <script>
+        var L=document.getElementById('listen')
+        var B=document.getElementById('button')
+        L.style.visibility='hidden'
+        B.addEventListener('click',function(){
+            L.style.visibility='visible'
+        })
+    </script>
+    </body> 
+</html>
